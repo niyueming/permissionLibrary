@@ -44,6 +44,7 @@ new NPermission.Builder(this)
           .request();
 ```
 在使用到特殊权限时，只需要在继承自NPermissionActivity的`Activity`或继承自NPermissionFragment的`Fragment`中直接调用，等到回调时即可执行相应的代码。
+
 **注意**  
 1. 如果不想使用提供的NPermissionActivity和NPermissionFragment，可以自己实现。在在6.0以下的手机是没有onRequestPermissionsResult()方法，可以实现ActivityCompat.OnRequestPermissionsResultCallback。
 2. permissionListener是申请权限结果的回调。
