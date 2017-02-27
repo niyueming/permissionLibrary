@@ -150,24 +150,31 @@ public class NPermission {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private static void onRequestPermissionsResult(Object o, int requestCode, @NonNull String[] permissions,
                                                    @NonNull int[] grantResults) {
         if (o instanceof Activity) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 ((Activity) o).onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
-            else if (o instanceof ActivityCompat.OnRequestPermissionsResultCallback)
+            else if (o instanceof ActivityCompat.OnRequestPermissionsResultCallback){
                 ((ActivityCompat.OnRequestPermissionsResultCallback) o).onRequestPermissionsResult(requestCode,
                         permissions, grantResults);
+            }
             else{
                 Log.e(TAG, "The " + o.getClass().getName() + " is not support " + "onRequestPermissionsResult()");
             }
-        } else if (o instanceof android.support.v4.app.Fragment) {
-            ((android.support.v4.app.Fragment) o).onRequestPermissionsResult(requestCode, permissions,
+        } else if (o instanceof Fragment) {
+            ((Fragment) o).onRequestPermissionsResult(requestCode, permissions,
                     grantResults);
         } else if (o instanceof android.app.Fragment) {
-            ((android.app.Fragment) o).onRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ((android.app.Fragment) o).onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }else if (o instanceof ActivityCompat.OnRequestPermissionsResultCallback){
+                ((ActivityCompat.OnRequestPermissionsResultCallback) o).onRequestPermissionsResult(requestCode,
+                        permissions, grantResults);
+            }else {
+                Log.e(TAG, "The " + o.getClass().getName() + " is not support " + "onRequestPermissionsResult()");
+            }
         }
     }
 
