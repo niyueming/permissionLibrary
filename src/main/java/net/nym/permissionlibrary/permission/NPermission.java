@@ -122,7 +122,7 @@ public class NPermission {
 
         @Override
         public void resume() {
-            requestPermissions(mContext, mRequestCode, getDeniedPermissions(permissions));
+            requestPermissions(mContext, mRequestCode, getDeniedPermissions(mContext,permissions));
         }
     };
 

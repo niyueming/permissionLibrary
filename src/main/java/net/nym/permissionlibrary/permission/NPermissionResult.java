@@ -51,11 +51,14 @@ public class NPermissionResult {
     }
 
     public static void removeListener(NPermissionListener listener){
-        int index = mListenerMap.indexOfValue(listener);
-        if (index == - 1){
-            return;
+        while (true){
+            int index = mListenerMap.indexOfValue(listener);
+            if (index == - 1){
+                return;
+            }
+            mListenerMap.removeAt(index);
         }
-        mListenerMap.removeAt(index);
+
     }
 
     public static void clear(){
